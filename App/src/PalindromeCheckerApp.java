@@ -5,52 +5,51 @@ import java.util.*;
  * @version 11.0
  * Author Sandeep Rathore
  */
-public class PalindromeCheckerApp {
+/**
+ * Interface defining the contract for palindrome checking algorithms.
+ */
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
+/**
+ * Concrete implementation using a Stack data structure.
+ */
+class StackStrategy implements PalindromeStrategy {
+    @Override
+    public boolean check(String input) {
+        Stack<Character> stack = new Stack<>();
+
+        // Push characters onto stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        // Pop and compare with original sequence
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter input: ");
         String input = scanner.nextLine();
 
-        // Instantiate the service class
-        PalindromeService service = new PalindromeService();
+        // Dynamically select the strategy (In this case, StackStrategy)
+        PalindromeStrategy strategy = new StackStrategy();
 
-        // Call the encapsulated logic
-        boolean isPalindrome = service.checkPalindrome(input);
+        // Execute the selected algorithm
+        boolean isPalindrome = strategy.check(input);
 
         System.out.println("Input: " + input);
         System.out.println("Is Palindrome?: " + isPalindrome);
 
         scanner.close();
-    }
-}
-
-/**
- * Service class that contains the encapsulated palindrome logic.
- */
-class PalindromeService {
-    /**
-     * Checks whether the input string is a palindrome.
-     * @param input The string to check
-     * @return true if palindrome, otherwise false
-     */
-    public boolean checkPalindrome(String input) {
-        if (input == null || input.isEmpty()) {
-            return true;
-        }
-
-        // Initialize pointers [cite: 311]
-        int start = 0; // [cite: 312]
-        int end = input.length() - 1; // [cite: 313, 314]
-
-        // Bidirectional comparison [cite: 315]
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
-                return false;
-            }
-            start++;
-            end--;
-        }
-        return true;
     }
 }
