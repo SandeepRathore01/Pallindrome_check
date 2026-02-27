@@ -1,30 +1,47 @@
 import java.util.*;
 public class PalindromeCheckerApp {
-    public static void main(String[] args){
-        System.out.println("Welcome to palindrome checker app management system");
-        System.out.println("Version 1.0");
-        //Author : Sandeep Rathore
-        System.out.println("System initialized successfully");
-        System.out.print("Enter a string: ");
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        //version 4
+        System.out.println("--- UC4: Palindrome Checker (Character Array) ---");
+        System.out.print("Enter a string to check: ");
+        String input = scanner.nextLine();
 
-        boolean isPalindrome = true;
-        int length = input.length();
-
-        for (int i = 0; i < length / 2; i++) {
-            if (input.charAt(i) != input.charAt(length - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        if (isPalindrome) {
-            System.out.println("It is a Palindrome.");
+        if (isPalindrome(input)) {
+            System.out.println("\"" + input + "\" is a palindrome.");
         } else {
-            System.out.println("It is not a Palindrome.");
+            System.out.println("\"" + input + "\" is NOT a palindrome.");
         }
 
-        sc.close();
+        scanner.close();
+    }
+
+    /**
+     * Validates if a string is a palindrome using a char array and two pointers.
+     */
+    public static boolean isPalindrome(String str) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+
+        // Step 1: Convert string to char[] for index-based access
+        // We often normalize to lowercase to ensure 'A' == 'a'
+        char[] charArray = str.toLowerCase().toCharArray();
+
+        // Step 2: Initialize two pointers
+        int left = 0;
+        int right = charArray.length - 1;
+
+        // Step 3: Compare characters moving toward the center
+        while (left < right) {
+            if (charArray[left] != charArray[right]) {
+                return false; // Mismatch found, not a palindrome
+            }
+            left++;  // Move start pointer forward
+            right--; // Move end pointer backward
+        }
+
+        return true; // All characters matched
     }
 }
+
