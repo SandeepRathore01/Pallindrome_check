@@ -1,8 +1,8 @@
 import java.util.*;
 
 /**
- * Description:  Encapsulate palindrome logic in a class.
- * @version 11.0
+ * Description:  Strategy Pattern for Palindrome Algorithms (Advanced).
+ * @version 12.0
  * Author Sandeep Rathore
  */
 /**
