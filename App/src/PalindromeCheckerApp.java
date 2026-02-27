@@ -1,8 +1,8 @@
 import java.util.*;
 
 /**
- * Description: Using Deque to compare front and rear elements.
- * @version 7.0
+ * Description: Check palindrome using singly linked list.
+ * @version 8.0
  * Author Sandeep Rathore
  */
 public class PalindromeCheckerApp {
@@ -10,30 +10,31 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter input: ");
-        // Define the input string [cite: 131]
+
+        // Define the input string
         String input = scanner.nextLine();
 
-        // Create a Deque to store characters [cite: 133, 134]
-        Deque<Character> deque = new ArrayDeque<>();
+        // Create a LinkedList to store characters
+        LinkedList<Character> list = new LinkedList<>();
 
-        // Add each character to the deque [cite: 135, 136]
+        // Add each character to the linked list
         for (char c : input.toCharArray()) {
-            deque.addLast(c);
+            list.add(c);
         }
 
-        // Flag to track palindrome result [cite: 138, 139]
+        // Flag to track palindrome state
         boolean isPalindrome = true;
 
-        // Continue comparison while more than one element exists [cite: 140, 141]
-        while (deque.size() > 1) {
-            // Remove first & last and compare [cite: 102, 118, 119]
-            if (deque.removeFirst() != deque.removeLast()) {
+        // Compare until only one or zero elements remain
+        while (list.size() > 1) {
+            // Symmetry check using removeFirst() and removeLast()
+            if (list.removeFirst() != list.removeLast()) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        // Print result [cite: 143, 144]
+        // Output results
         System.out.println("Input: " + input);
         System.out.println("Is Palindrome?: " + isPalindrome);
 
