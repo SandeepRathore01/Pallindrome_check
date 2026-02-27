@@ -1,8 +1,8 @@
 import java.util.*;
 
 /**
- * Description: Case-Insensitive & Space-Ignored Palindrome
- * @version 10.0
+ * Description:  Encapsulate palindrome logic in a class.
+ * @version 11.0
  * Author Sandeep Rathore
  */
 public class PalindromeCheckerApp {
@@ -12,25 +12,45 @@ public class PalindromeCheckerApp {
         System.out.print("Enter input: ");
         String input = scanner.nextLine();
 
-        // Step 1: Normalize the string (Remove non-alphanumeric and lowercase)
-        // Using regex to replace all non-word characters [cite: 245, 254]
-        String normalized = input.replaceAll("[^a-zA-Z0-0]", "").toLowerCase();
+        // Instantiate the service class
+        PalindromeService service = new PalindromeService();
 
-        boolean isPalindrome = true;
+        // Call the encapsulated logic
+        boolean isPalindrome = service.checkPalindrome(input);
 
-        // Step 2: Compare characters from both ends
-        for (int i = 0; i < normalized.length() / 2; i++) {
-            // Compare symmetric characters [cite: 271]
-            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        // Output results
         System.out.println("Input: " + input);
         System.out.println("Is Palindrome?: " + isPalindrome);
 
         scanner.close();
+    }
+}
+
+/**
+ * Service class that contains the encapsulated palindrome logic.
+ */
+class PalindromeService {
+    /**
+     * Checks whether the input string is a palindrome.
+     * @param input The string to check
+     * @return true if palindrome, otherwise false
+     */
+    public boolean checkPalindrome(String input) {
+        if (input == null || input.isEmpty()) {
+            return true;
+        }
+
+        // Initialize pointers [cite: 311]
+        int start = 0; // [cite: 312]
+        int end = input.length() - 1; // [cite: 313, 314]
+
+        // Bidirectional comparison [cite: 315]
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
     }
 }
